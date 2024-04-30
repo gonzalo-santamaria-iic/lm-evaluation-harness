@@ -124,6 +124,18 @@ def brier_score(items):  # This is a passthrough function
     predictions = list(zip(*items))[1]
     return np.mean(np.sum((predictions - gold_one_hot) ** 2, axis=1))
 
+@register_metric(
+    metric="cosine_similarity",
+    higher_is_better=True,
+    output_type="generate_until",
+    aggregation="mean",
+)
+def cosine_similarity(items):  # This is a passthrough function
+    refs = list(zip(*items))[0]
+    preds = list(zip(*items))[1]
+    refs = refs/np.linalg.norm(refs)
+    preds = preds//np.linalg.norm(preds)
+    return np.dot(refs, preds)
 
 @register_metric(
     metric="brier_score",
