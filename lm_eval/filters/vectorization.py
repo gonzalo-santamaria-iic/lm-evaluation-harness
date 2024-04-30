@@ -1,4 +1,5 @@
 from lm_eval.api.filter import Filter
+from lm_eval.api.registry import register_filter
 from sentence_transformers import SentenceTransformer
 
 @register_filter("embedding")
